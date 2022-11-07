@@ -2,6 +2,10 @@
 
 #include "nwe_core.h"
 #include "nwe_widget.h"
+#include "nwe_label.h"
+#include "nwe_button.h"
+#include "nwe_container.h"
+#include "nwe_column.h"
 
 int main(int argc, char** argv) {
 	return nwe::runApplication(
@@ -21,7 +25,7 @@ int main(int argc, char** argv) {
 						}
 					})
 				},
-				.alignment = nwe::Alignment::Center
+				.alignment = nwe::Alignment::Stretch
 			})
 		})
 	);

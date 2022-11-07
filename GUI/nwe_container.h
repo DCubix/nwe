@@ -8,11 +8,11 @@ namespace nwe {
 		Insets padding{};
 		Size size{ 0, 0 };
 	};
-	struct Container : public Widget {
-		void nativeBuild(Rect bounds, HWND parent = nullptr) override;
-		void nativeDestroy() override;
 
-		Rect bounds() override;
+	struct Container : public Widget {
+		Size nativeBuild(Rect bounds, HWND parent = nullptr) override;
+		Size nativeUpdate(Rect bounds) override;
+		void nativeDestroy() override;
 
 		std::unique_ptr<Widget> _childRef;
 	};

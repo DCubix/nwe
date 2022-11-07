@@ -582,6 +582,14 @@ namespace nwe {
 		ss << TEXT("Unknown(") << msg << TEXT(")");
 		return ss.str();
 	}
+	
+	Size win32::measureText(HWND handle, const nwe::String& text) {
+		HDC dc = GetDC(handle);
+		SIZE sz;
+		GetTextExtentPoint32(dc, text.c_str(), text.size(), &sz);
+		ReleaseDC(handle, dc);
+		return { uint32_t(sz.cx + 2), uint32_t(sz.cy) };
+	}
 
 	int runApplication(Widget* root) {
 		HWND window = win32::createWindow({
@@ -604,6 +612,7 @@ namespace nwe {
 
 		return msg.wParam;
 	}
+
 }
 
 static LRESULT CALLBACK win32WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {

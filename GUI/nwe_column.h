@@ -2,15 +2,22 @@
 
 #include "nwe_widget.h"
 
-namespace nwe{
+#include <vector>
+#include <map>
+
+namespace nwe {
 	struct ColumnParams : Params {
 		std::vector<Widget*> children;
 		Alignment alignment{ Alignment::Near };
 	};
 	struct Column : public Widget {
-		void nativeBuild(Rect bounds, HWND parent = nullptr) override;
+		Size nativeBuild(Rect bounds, HWND parent = nullptr) override;
+		Size nativeUpdate(Rect bounds) override;
 		void nativeDestroy() override;
 
+	private:
 		std::vector<std::unique_ptr<Widget>> _childRefs;
+		std::map<size_t, Size> _childSizes;
+
 	};
 }

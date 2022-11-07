@@ -8,8 +8,8 @@ namespace nwe {
 		std::function<void()> onPressed;
 	};
 	struct Button : public Widget {
-		void nativeBuild(Rect bounds, HWND parent = nullptr) override;
-		Rect bounds() override;
+		Size nativeBuild(Rect bounds, HWND parent = nullptr) override;
+		Size nativeUpdate(Rect bounds) override;
 
 		uint64_t _commandID{ 0 };
 	};

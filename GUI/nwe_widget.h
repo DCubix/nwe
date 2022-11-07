@@ -20,20 +20,13 @@ namespace nwe {
 			if (handle) DestroyWindow(handle);
 			handle = nullptr;
 		}
-		virtual void nativeBuild(Rect bounds, HWND parent = nullptr) {}
-		virtual void nativeUpdate(Rect bounds) {
+		virtual Size nativeBuild(Rect bounds, HWND parent = nullptr) { return nativeUpdate(bounds); }
+		virtual Size nativeUpdate(Rect bounds) {
 			SetWindowPos(handle, 0, bounds.x, bounds.y, bounds.width, bounds.height, 0);
+			return bounds.size();
 		}
 
 		virtual std::unique_ptr<Widget> build() { return nullptr; }
-		virtual Rect bounds();
-
-		inline virtual void refresh() {
-			Rect bounds = win32::getBounds(handle);
-			HWND parent = GetParent(handle);
-			nativeDestroy();
-			nativeBuild(bounds, parent);
-		}
 
 		Widget* construct(Params* params) { this->params = std::unique_ptr<Params>(params); return this; }
 
@@ -44,7 +37,8 @@ namespace nwe {
 	enum Alignment {
 		Near = 0,
 		Center,
-		Far
+		Far,
+		Stretch
 	};
 
 	struct Insets {

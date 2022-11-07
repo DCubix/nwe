@@ -11,7 +11,7 @@ DefWndProc(button) {
 	return DefSubclassProc(hWnd, msg, wParam, lParam);
 }
 
-void nwe::Button::nativeBuild(Rect pBounds, HWND parent) {
+nwe::Size nwe::Button::nativeBuild(Rect pBounds, HWND parent) {
 	win32::WidgetParams params{};
 	params.className = TEXT("BUTTON");
 	params.parent = parent;
@@ -19,29 +19,28 @@ void nwe::Button::nativeBuild(Rect pBounds, HWND parent) {
 
 	_commandID = g_WidgetID++;
 	handle = win32::createControl(params, _commandID, this);
+	return nativeUpdate(pBounds);
+}
 
-	Rect cBounds = bounds();
-	cBounds.x = pBounds.x;
-	cBounds.y = pBounds.y;
+nwe::Size nwe::Button::nativeUpdate(Rect pBounds) {
+	ButtonParams& btnParams = ConvertParams(ButtonParams);
+
+	Size size = win32::measureText(handle, btnParams.text);
+	Rect cBounds = pBounds;
+	if (pBounds.width == 0) {
+		cBounds.width = size.width;
+		cBounds.width += 24;
+	}
+	if (pBounds.height == 0) {
+		cBounds.height = size.height;
+		cBounds.height += 10;
+	}
 
 	SetWindowPos(handle, 0, cBounds.x, cBounds.y, cBounds.width, cBounds.height, 0);
 
-	ButtonParams& btnParams = ConvertParams(ButtonParams);
 	SendMessage(handle, WM_SETTEXT, 0, LPARAM(btnParams.text.data()));
 
 	SetWindowSubclass(handle, buttonWndProc, 0, 0);
-}
 
-nwe::Rect nwe::Button::bounds() {
-	ButtonParams& btnParams = ConvertParams(ButtonParams);
-	HDC dc = GetDC(handle);
-	SIZE sz;
-	GetTextExtentPoint32(dc, btnParams.text.c_str(), btnParams.text.size(), &sz);
-	ReleaseDC(handle, dc);
-	return {
-		.x = 0,
-		.y = 0,
-		.width = uint32_t(sz.cx) + 48,
-		.height = uint32_t(sz.cy) + 16
-	};
+	return cBounds.size();
 }

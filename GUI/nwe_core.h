@@ -15,7 +15,12 @@ namespace nwe {
 
 	struct Size { uint32_t width, height; };
 	struct Point { int x, y; };
-	struct Rect { int x{ 0 }, y{ 0 }; uint32_t width{ 0 }, height{ 0 }; };
+	struct Rect {
+		int x{ 0 }, y{ 0 };
+		uint32_t width{ 0 }, height{ 0 };
+
+		Size size() const { return { width, height }; }
+	};
 
 	struct Widget;
 
@@ -35,6 +40,7 @@ namespace nwe {
 		HWND createWindow(WindowParams params, void* userData = nullptr);
 		HWND createControl(WidgetParams params, uint64_t uniqueID = 0, void* userData = nullptr);
 		Rect getBounds(HWND handle);
+		Size measureText(HWND handle, const String& text);
 
 		String messageToString(UINT msg);
 	}
