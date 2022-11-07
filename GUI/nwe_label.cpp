@@ -10,19 +10,24 @@ nwe::Size nwe::Label::nativeBuild(Rect pBounds, HWND parent) {
 }
 
 nwe::Size nwe::Label::nativeUpdate(nwe::Rect pBounds) {
+	Widget::nativeUpdate(pBounds);
+
 	LabelParams& lblParams = ConvertParams(LabelParams);
 
 	Size textSize = win32::measureText(handle, lblParams.text);
 	Rect cBounds = pBounds;
-	cBounds.height = textSize.height;
-
 	if (pBounds.width == 0) {
 		cBounds.width = textSize.width;
+		cBounds.width += 24;
+	}
+	if (pBounds.width == 0) {
+		cBounds.height = textSize.height;
+		cBounds.width += 10;
 	}
 
 	SendMessage(handle, WM_SETTEXT, 0, LPARAM(lblParams.text.data()));
 
-	/*auto style = GetWindowLongPtr(handle, GWL_STYLE);
+	auto style = GetWindowLongPtr(handle, GWL_STYLE);
 	style &= ~(SS_LEFT | SS_CENTER | SS_RIGHT);
 
 	switch (lblParams.alignment) {
@@ -32,7 +37,7 @@ nwe::Size nwe::Label::nativeUpdate(nwe::Rect pBounds) {
 		case Alignment::Far: style |= SS_RIGHT; break;
 	}
 	SetWindowLongPtr(handle, GWL_STYLE, style);
-	InvalidateRect(handle, NULL, TRUE);*/
+	InvalidateRect(handle, NULL, TRUE);
 
 	return nwe::Widget::nativeUpdate(cBounds);
 }

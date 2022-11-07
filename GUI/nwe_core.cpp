@@ -624,7 +624,10 @@ namespace nwe {
 		});
 
 		root->nativeBuild(win32::getBounds(window), window);
-		root->build();
+		auto&& wid = root->build();
+		if (wid) {
+			wid->nativeBuild(win32::getBounds(window), window);
+		}
 
 		MSG msg = {};
 		while (GetMessage(&msg, nullptr, 0, 0) > 0) {

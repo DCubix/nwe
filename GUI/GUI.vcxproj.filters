@@ -45,6 +45,9 @@
     <ClCompile Include="nwe_row.cpp">
       <Filter>Source Files\widgets</Filter>
     </ClCompile>
+    <ClCompile Include="nwe_edit.cpp">
+      <Filter>Source Files\widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="nwe_core.h">
@@ -66,6 +69,9 @@
       <Filter>Header Files\widgets</Filter>
     </ClInclude>
     <ClInclude Include="nwe_row.h">
+      <Filter>Header Files\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="nwe_edit.h">
       <Filter>Header Files\widgets</Filter>
     </ClInclude>
   </ItemGroup>

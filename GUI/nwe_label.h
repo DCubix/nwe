@@ -3,7 +3,7 @@
 #include "nwe_widget.h"
 
 namespace nwe {
-	struct LabelParams : Params {
+	struct LabelParams : public Params {
 		String text{ TEXT("Label") };
 		Alignment alignment{ Alignment::Center };
 	};

@@ -19,7 +19,7 @@ nwe::Size nwe::Row::nativeBuild(Rect pBounds, HWND parent) {
 }
 
 nwe::Size nwe::Row::nativeUpdate(Rect pBounds) {
-	SetWindowPos(handle, 0, pBounds.x, pBounds.y, pBounds.width, pBounds.height, 0);
+	Widget::nativeUpdate(pBounds);
 
 	RowParams& rowParams = ConvertParams(RowParams);
 

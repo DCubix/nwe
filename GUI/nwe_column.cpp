@@ -19,7 +19,7 @@ nwe::Size nwe::Column::nativeBuild(Rect pBounds, HWND parent) {
 }
 
 nwe::Size nwe::Column::nativeUpdate(Rect pBounds) {
-	SetWindowPos(handle, 0, pBounds.x, pBounds.y, pBounds.width, pBounds.height, 0);
+	Widget::nativeUpdate(pBounds);
 
 	ColumnParams& colParams = ConvertParams(ColumnParams);
 

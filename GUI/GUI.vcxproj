@@ -135,6 +135,7 @@
     <ClCompile Include="nwe_button.cpp" />
     <ClCompile Include="nwe_column.cpp" />
     <ClCompile Include="nwe_container.cpp" />
+    <ClCompile Include="nwe_edit.cpp" />
     <ClCompile Include="nwe_label.cpp" />
     <ClCompile Include="nwe_row.cpp" />
     <ClCompile Include="nwe_widget.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="nwe_button.h" />
     <ClInclude Include="nwe_column.h" />
     <ClInclude Include="nwe_container.h" />
+    <ClInclude Include="nwe_edit.h" />
     <ClInclude Include="nwe_label.h" />
     <ClInclude Include="nwe_row.h" />
     <ClInclude Include="nwe_widget.h" />

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Windows.h>
+#include <windowsx.h>
 
 #include <cstdint>
 #include <string>
@@ -48,4 +49,5 @@ namespace nwe {
 	}
 
 	int runApplication(Widget* root);
+
 }

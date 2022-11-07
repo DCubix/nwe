@@ -21,7 +21,7 @@ void nwe::Container::nativeDestroy() {
 }
 
 nwe::Size nwe::Container::nativeUpdate(nwe::Rect pBounds) {
-	SetWindowPos(handle, 0, pBounds.x, pBounds.y, pBounds.width, pBounds.height, 0);
+	Widget::nativeUpdate(pBounds);
 
 	ContainerParams& cntParams = ConvertParams(ContainerParams);
 	Rect oBounds{

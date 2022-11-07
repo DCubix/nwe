@@ -19,10 +19,13 @@ nwe::Size nwe::Button::nativeBuild(Rect pBounds, HWND parent) {
 
 	_commandID = g_WidgetID++;
 	handle = win32::createControl(params, _commandID, this);
+	SetWindowSubclass(handle, buttonWndProc, 0, 0);
 	return nativeUpdate(pBounds);
 }
 
 nwe::Size nwe::Button::nativeUpdate(Rect pBounds) {
+	Widget::nativeUpdate(pBounds);
+
 	ButtonParams& btnParams = ConvertParams(ButtonParams);
 
 	Size size = win32::measureText(handle, btnParams.text);
@@ -37,10 +40,7 @@ nwe::Size nwe::Button::nativeUpdate(Rect pBounds) {
 	}
 
 	SetWindowPos(handle, 0, cBounds.x, cBounds.y, cBounds.width, cBounds.height, 0);
-
-	SendMessage(handle, WM_SETTEXT, 0, LPARAM(btnParams.text.data()));
-
-	SetWindowSubclass(handle, buttonWndProc, 0, 0);
+	Button_SetText(handle, btnParams.text.data());
 
 	return cBounds.size();
 }
