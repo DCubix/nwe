@@ -41,6 +41,8 @@ namespace nwe {
 		HWND createControl(WidgetParams params, uint64_t uniqueID = 0, void* userData = nullptr);
 		Rect getBounds(HWND handle);
 		Size measureText(HWND handle, const String& text);
+		
+		void setFont(HWND handle, const String& fontFamily, int size = 10);
 
 		String messageToString(UINT msg);
 	}

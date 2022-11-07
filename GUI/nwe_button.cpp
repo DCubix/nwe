@@ -15,7 +15,7 @@ nwe::Size nwe::Button::nativeBuild(Rect pBounds, HWND parent) {
 	win32::WidgetParams params{};
 	params.className = TEXT("BUTTON");
 	params.parent = parent;
-	params.style = WS_VISIBLE | WS_CHILD | WS_TABSTOP | BS_DEFPUSHBUTTON;
+	params.style = WS_VISIBLE | WS_CHILD | WS_TABSTOP | BS_PUSHBUTTON;
 
 	_commandID = g_WidgetID++;
 	handle = win32::createControl(params, _commandID, this);

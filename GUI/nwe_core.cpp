@@ -1,5 +1,14 @@
 #include "nwe_core.h"
 
+// thanks MaGetzUb
+#pragma comment(linker,"/manifestdependency:\"type='win32' "\
+                       "name='Microsoft.Windows.Common-Controls' "\
+                       "version='6.0.0.0' "\
+                       "processorArchitecture='*' "\
+                       "publicKeyToken='6595b64144ccf1df' "\
+                       "language='*' "\
+                       "\"")
+
 #include <Richedit.h>
 #include <windowsx.h>
 
@@ -591,6 +600,22 @@ namespace nwe {
 		return { uint32_t(sz.cx + 2), uint32_t(sz.cy) };
 	}
 
+	void win32::setFont(HWND handle, const String& fontFamily, int size) {
+		HDC hdc = GetDC(handle);
+		const int fontHeight = -MulDiv(size, GetDeviceCaps(hdc, LOGPIXELSY), 72);
+		ReleaseDC(handle, hdc);
+
+		HFONT font = CreateFont(
+			fontHeight, 0, 0, 0,
+			FW_DONTCARE, false, false, false,
+			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+			DEFAULT_QUALITY, FF_SWISS,
+			fontFamily.c_str()
+		);
+
+		SendMessage(handle, WM_SETFONT, WPARAM(font), true);
+	}
+
 	int runApplication(Widget* root) {
 		HWND window = win32::createWindow({
 			.title = TEXT("Nice Widget Engine"),
@@ -670,6 +695,7 @@ HWND nwe::win32::createWindow(WindowParams params, void* userData) {
 		instance,
 		NULL
 	);
+	setFont(handle, TEXT("Segoe UI"));
 
 	SetWindowLongPtr(handle, GWLP_USERDATA, (LONG_PTR)userData);
 
@@ -694,6 +720,7 @@ HWND nwe::win32::createControl(WidgetParams params, uint64_t uniqueID, void* use
 	if (userData) {
 		SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)userData);
 	}
+	setFont(hwnd, TEXT("Segoe UI"));
 	return hwnd;
 }
 
